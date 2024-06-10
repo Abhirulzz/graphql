@@ -1,0 +1,43 @@
+scalar Long
+type Mutation {
+    createBook(title: String, pages: Long, author: String,review:ID!): Book
+    createBookWithReview(bookInput: BookInput!): Book
+    addBook(bookInput: BookInput!): Book
+    updateBook(id: ID!, book: BookInput!): Book
+    createReview(reviewInput: ReviewInput!): Review
+    deleteBook(id: ID!): Book
+}
+
+type Query {
+    findAllBooks: [Book]
+    findBook(id: ID!): Book
+}
+
+type Book {
+    id: ID!
+    title: String
+    pages: Long
+    author: String
+    reviews: [Review!]!
+}
+
+type Review {
+    id: ID!
+    title: String
+    comment: String
+    book: Book!
+}
+
+input BookInput {
+    title: String!
+    pages: Long
+    author: String
+    reviews:[ReviewInput!]!
+}
+
+
+input ReviewInput {
+    title: String!
+    comment:String
+    bookId:ID!
+}
